@@ -1,0 +1,11 @@
+{
+    "name": "InformText",
+    "alias": "informtext",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\InformText\\Providers\\InformTextServiceProvider"
+    ],
+    "files": []
+}
