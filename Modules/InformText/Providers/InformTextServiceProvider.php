@@ -2,8 +2,13 @@
 
 namespace Modules\InformText\Providers;
 
+use App\Components\ColorManager\ColorManager;
+use App\ModuleManager\Facades\ModuleManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Livewire\Livewire;
+use Modules\InformText\Livewire\TextBuilder;
+use Modules\InformText\Livewire\TextView;
 
 class InformTextServiceProvider extends ServiceProvider
 {
@@ -28,6 +33,17 @@ class InformTextServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        Livewire::component("inform-text::builder",TextBuilder::class);
+        Livewire::component("inform-text::view",TextView::class);
+
+        ModuleManager::register($this->moduleNameLower,false,"inform-text::builder","inform-text::view",null,[
+            'text' => 'Neuer Text',
+            'bold' => false,
+            'cursiv' => false,
+            'font-family' => 'Arial',
+            'font-size' => '1',
+            'colors' => ColorManager::generateInitData(['text-color']),
+        ]);
     }
 
     /**

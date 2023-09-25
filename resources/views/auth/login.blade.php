@@ -1,1 +1,1 @@
-<?php
+@livewire("auth.default-auth")

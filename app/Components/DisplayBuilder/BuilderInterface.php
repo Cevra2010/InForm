@@ -1,5 +1,5 @@
 <?php
-namespace App\DisplayBuilder;
+namespace App\Components\DisplayBuilder;
 
 use App\Models\DisplayObject;
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\DisplayBuilder;
+namespace App\Components\DisplayBuilder;
 
 use App\Models\DisplayObject;
 use Livewire\Attributes\On;
@@ -17,11 +17,11 @@ class Builder extends Component {
         $this->width = $this->displayObject->width;
         $this->height = $this->displayObject->height;
     }
-    protected function updateDisplay() {
+    public function updateDisplay() {
         $this->dispatch('object-updated',['object' => $this->displayObject->id]);
     }
 
-    protected function updateData($array) {
+    public function updateData($array) {
         $this->displayObject->data = array_merge($this->displayObject->data,$array);
         $this->displayObject->save();
         $this->updateDisplay();

@@ -2,37 +2,26 @@
 
 @section("content")
     <h1 class="backend-headline">
-        {{ __("backend.user.account") }}: {{ $user->firstname }} {{ $user->lastname }}
+        {{ __("backend.user.role") }}: {{ $role->name }}
     </h1>
+    <p class="text-xs text-slate-600 mb-4">{{__("backend.user.accounts-in-role")}}: {{ $role->users()->count() }} | {{__("form.created-at")}}: {{ $role->created_at->format("d.m.Y H:i ")}} | {{__("form.updated-at")}}: {{ $role->updated_at->format("d.m.Y H:i") }}
 
 
-    @hasAccess("user.edit.data")
-    <h3 class="backend-headline-small">{{ __("backend.user.base") }}</h3>
-    <div class="backend-panel">
-        @include("layouts.backend.error_success")
-        <form class="inform-form" action="{{ route("backend.user.store.data",$user) }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="firstname">{{ __("form.attributes.firstname") }}</label>
-                <input id="firstname" name="firstname" type="text" value="{{ old("firstname",$user->firstname) }}" />
+    <div class="backend-panel mt-4">
+    @foreach($areas as $parentArea)
+        <div class="flex p-2 pl-4 border border-slate-200 bg-slate-100 text-slate-700">
+            <div>
+                @livewire("backend.user.area-toggle",['area' => $parentArea,'role' => $role])
             </div>
-            <div class="form-group">
-                <label for="lastname">{{ __("form.attributes.lastname") }}</label>
-                <input id="lastname" name="lastname" type="text" value="{{ old("lastname",$user->lastname) }}" />
-            </div>
-            <div class="form-group">
-                <label for="username">{{ __("form.attributes.username") }}</label>
-                <input id="username" name="username" type="text" value="{{ old("username",$user->username) }}" />
-            </div>
-            <button type="submit">{{ __("form.save_changes") }}</button>
-        </form>
+
+            <div class="pl-4">{{ $parentArea->name }}</div>
+        </div>
+        @include("backend.user.roles.area-child",['deep' => 1])
+    @endforeach
     </div>
-    @endhasAccess
 
-    @hasAccess("user.edit.roles")
-    <h3 class="backend-headline-small">{{ __("backend.user.userroles") }}</h3>
-    <div class="backend-panel p-4">
-        @livewire("backend.user.role-selector",['user' => $user])
+    <h1 class="backend-headline-small">Benutzerrolle löschen</h1>
+    <div class="backend-panel mt-4">
+        @livewire("backend.user.delete-role",['role' => $role])
     </div>
-    @endhasAccess
 @endsection

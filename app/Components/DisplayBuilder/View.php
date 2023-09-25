@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DisplayBuilder;
+namespace App\Components\DisplayBuilder;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,5 +19,9 @@ class View extends Component {
     #[On('object-updated')]
     public function updateMyself() {
         $this->displayObject->refresh();
+    }
+
+    public function updateData($array) {
+        // DO-NOTHING
     }
 }

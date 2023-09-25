@@ -1,5 +1,5 @@
 <?php
-namespace App\Components\DisplayEventManager;
+namespace App\Components\DisplayEventManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

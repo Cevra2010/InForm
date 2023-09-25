@@ -1,1 +1,47 @@
 <?php
+
+return [
+    'default_color' => [
+        'color-name' => null,
+        'mode' => 'tailwind',
+        'hex' => '',
+        'name' => 'slate',
+        'strength' => '800',
+    ],
+    'name' => 'Container',
+    'color_names' => [
+        'white',
+        'black',
+        'neutral',
+        'stone',
+        'red',
+        'orange',
+        'amber',
+        'yellow',
+        'lime',
+        'green',
+        'emerald',
+        'teal',
+        'cyan',
+        'sky',
+        'blue',
+        'indigo',
+        'violet',
+        'purple',
+        'fuchsia',
+        'pink',
+        'rose',
+    ],
+    'color_nums' => [
+        '50',
+        '100',
+        '200',
+        '300',
+        '400',
+        '500',
+        '600',
+        '700',
+        '800',
+        '900',
+    ]
+];

@@ -2,9 +2,10 @@
 namespace Modules\Image\Livewire;
 
 use App\Models\DisplayObject;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
-class ImageBuilder extends Component {
+class ImageView extends Component {
 
 
     public $displayObject = null;
@@ -13,7 +14,12 @@ class ImageBuilder extends Component {
         $this->displayObject = $object;
     }
     public function render() {
-        return view("image::livewire.builder.menu");
+        return view("image::livewire.builder.view");
+    }
+
+    #[On('object-updated')]
+    public function objectUpdated() {
+        $this->displayObject->refresh();
     }
 
 }
