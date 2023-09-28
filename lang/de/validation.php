@@ -10,5 +10,6 @@ return [
         'password-confirm' => 'Passwort wiederholen',
         'name' => 'Name',
         'color' => 'Farbe',
+        'icon' => 'Icon',
     ],
 ];

@@ -13,6 +13,9 @@ class GroupController extends Controller
         return view("backend.group.create");
     }
 
+    /**
+     * Test 
+     */
     public function showEditGroupForm(Group $group) {
         return view("backend.group.edit", [
             'group' => $group,
