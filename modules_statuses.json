@@ -1,8 +1,0 @@
-{
-    "Newsfeed": true,
-    "Debug": true,
-    "Image": true,
-    "Container": true,
-    "LdapAuth": true,
-    "InformText": true
-}
