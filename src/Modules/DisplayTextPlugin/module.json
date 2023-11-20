@@ -1,0 +1,11 @@
+{
+    "name": "DisplayTextPlugin",
+    "alias": "displaytextplugin",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DisplayTextPlugin\\Providers\\DisplayTextPluginServiceProvider"
+    ],
+    "files": []
+}

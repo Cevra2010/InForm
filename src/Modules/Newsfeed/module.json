@@ -1,0 +1,11 @@
+{
+    "name": "Newsfeed",
+    "alias": "newsfeed",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Newsfeed\\Providers\\NewsfeedServiceProvider"
+    ],
+    "files": []
+}

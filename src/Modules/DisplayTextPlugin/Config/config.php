@@ -1,0 +1,37 @@
+<?php
+
+return [
+    'name' => 'DisplayTextPlugin',
+    'fonts' => [
+        'ubuntu' => 'Ubuntu',
+        'dancing_script' => 'Dancing Script',
+        'courier_new' => 'Courier New',
+        'arial' => 'Arial',
+        'arial_back' => 'Arial Black',
+        'arial_narrow' => 'Arial Narrow',
+        'arial_rounded ' => 'Arial Rounded MT Bold',
+        'bookman ' => 'Bookman Old Style',
+        'bradley' => 'Bradley Hand ITC',
+        'century' => 'Century',
+        'cent_goth' => 'Century Gothic',
+        'csamns' => 'Comic Sans MS',
+        'cou' => 'Courier',
+        'coun' => 'Courier New',
+        'goerg' => 'Georgia',
+        'gent' => 'Gentium',
+        'impact' => 'Impact',
+        'king' => 'King',
+        'ludia' => 'Lucida Console',
+        'lal' => 'Lalit',
+        'mod' => 'Modena',
+        'mono_cor' => 'Monotype Corsiva',
+        'pap' => 'Papyrus',
+        'tah' => 'Tahoma',
+        'tex' => 'TeX',
+        'times' => 'Times',
+        'times_new' => 'Times New Roman',
+        'trwnb' => 'Trebuchet MS',
+        'verdana' => 'Verdana',
+        'verona' => 'Verona' ,
+    ]
+];

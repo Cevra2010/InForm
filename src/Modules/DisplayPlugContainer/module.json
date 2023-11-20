@@ -1,0 +1,11 @@
+{
+    "name": "DisplayPlugContainer",
+    "alias": "displayplugcontainer",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DisplayPlugContainer\\Providers\\DisplayPlugContainerServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,21 @@
+@layer components {
+    .inform-default-table {
+        @apply w-full font-light text-slate-700 text-sm
+    }
+
+    .inform-default-table-row-linked {
+        @apply hover:bg-slate-100 cursor-pointer
+    }
+
+    .inform-default-table > thead > tr > th {
+        @apply p-2 text-left
+    }
+
+    .inform-default-table > tbody > tr > td {
+        @apply p-2 border-t
+    }
+
+    .inform-default-table-wrapper {
+        @apply p-6 bg-white rounded shadow
+    }
+}

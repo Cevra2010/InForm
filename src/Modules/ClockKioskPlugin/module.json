@@ -1,0 +1,11 @@
+{
+    "name": "ClockKioskPlugin",
+    "alias": "clockkioskplugin",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ClockKioskPlugin\\Providers\\ClockKioskPluginServiceProvider"
+    ],
+    "files": []
+}

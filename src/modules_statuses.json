@@ -1,0 +1,9 @@
+{
+    "Newsfeed": true,
+    "Debug": true,
+    "LdapAuth": true,
+    "Kiosk": true,
+    "DisplayPlugContainer": true,
+    "DisplayTextPlugin": true,
+    "ClockKioskPlugin": true
+}

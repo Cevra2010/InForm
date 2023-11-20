@@ -1,0 +1,63 @@
+@layer components {
+
+    .inform-form .form-group {
+        @apply flex flex-col p-2 w-full
+    }
+
+    .inform-form .form-group > label {
+        @apply flex items-center text-slate-500 text-sm font-bold mb-1
+    }
+
+    .inform-form .form-group > input, textarea,select {
+        @apply border border-slate-300 rounded p-2 text-sm text-slate-500 outline-none focus:border-teal-500 w-full
+    }
+
+    .inform-form button[type="submit"] {
+        @apply bg-gradient-to-b from-teal-500 to-teal-600 py-2 text-slate-50 px-4 block ml-2 mt-4 shadow text-sm rounded hover:from-teal-600 hover:to-teal-700
+    }
+
+    .inform-input {
+        @apply border border-slate-300 rounded p-2 text-sm text-slate-500 outline-none focus:border-teal-500 w-full my-1
+    }
+
+    .inform-label {
+        @apply text-slate-700 mt-2 text-xs font-bold 
+    }
+
+    .inform-toggle-bar {
+        @apply flex mt-2 h-10
+    }
+
+    :first-child.inform-toggle-true {
+        @apply rounded-l border
+    }
+
+    :first-child.inform-toggle-false {
+        @apply rounded-l border
+    }
+
+    .inform-toggle-false:not(:first-child):not(:last-child) {
+        @apply border-b border-r border-t
+    }
+
+    .inform-toggle-true:not(:first-child):not(:last-child) {
+        @apply border-b border-r border-t
+    }
+
+    :last-child.inform-toggle-false {
+        @apply rounded-r border-r border-t border-b
+    }
+
+    :last-child.inform-toggle-true {
+        @apply rounded-r  border-r border-t border-b
+    }
+
+    .inform-toggle-true {
+        @apply h-full bg-gradient-to-b from-slate-400 to-slate-500 text-slate-50 border border-slate-400 cursor-pointer px-4 flex items-center
+    }
+
+    .inform-toggle-false {
+        @apply h-full bg-gradient-to-b from-slate-200 to-slate-300 text-slate-600 border-slate-400 cursor-pointer px-4 flex items-center
+    }
+
+}

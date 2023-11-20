@@ -1,0 +1,11 @@
+{
+    "name": "LdapAuth",
+    "alias": "ldapauth",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LdapAuth\\Providers\\LdapAuthServiceProvider"
+    ],
+    "files": []
+}
