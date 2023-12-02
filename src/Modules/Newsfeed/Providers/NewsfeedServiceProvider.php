@@ -58,6 +58,7 @@ class NewsfeedServiceProvider extends ServiceProvider
         ->sortExpect('createdBy')
         ->setModelBinding(Article::class)
         ->addWhereCondition('data->newsfeed_id')
+        ->addWhereCondition('data->status','edit')
         ->addAction('','newsfeed::article.editor','id')
             ->icon("edit")
             ->css("text-yellow-500")
@@ -65,14 +66,32 @@ class NewsfeedServiceProvider extends ServiceProvider
             ->icon("globe")
             ->css("text-teal-700")
             ->asPost()
-            ->confirmation(function() {
-                
+            ->confirmation(function($dataTable) {
+                    
             },'Beitrag wirklich veröffentlichen?')
         ->addColumn('data->title','Titel')
         ->addColumn('createdBy','Erstellt von')
             ->callback(function($row) {
                 return $row->createdBy->fullName();
             });
+
+
+        DataTable::create('newsfeed::published-table')
+        ->withPivot('createdBy')
+        ->withoutWrapper()
+        ->sortExpect('createdBy')
+        ->setModelBinding(Article::class)
+        ->addWhereCondition('data->newsfeed_id')
+        ->addWhereCondition('data->status','published')
+        ->addAction('','newsfeed::article.editor','id')
+            ->icon("edit")
+            ->css("text-yellow-500")
+        ->addColumn('data->title','Titel')
+        ->addColumn('createdBy','Erstellt von')
+            ->callback(function($row) {
+                return $row->createdBy->fullName();
+        });
+
 
         /** register sidebar elements */
         $this->registerSidebarElements();

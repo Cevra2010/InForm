@@ -29,7 +29,7 @@
 
         <div class="col-span-3">
             <x-inform-panel icon="users" headline="Veröffentlichte Artikel">
-                @livewire("newsfeed::dashboard.article-list",['newsfeed' => $newsfeed])
+                <x-inform-data-table table="newsfeed::published-table" :data="['data->newsfeed_id' => $newsfeed->id]"/>
             </x-inform-panel>
         </div>
       </div>

@@ -584,7 +584,12 @@ class DataTable {
     public function getActionParameters($rowObject,$action) : array {
         $parameters = [];
         foreach($action['parameters'] as $key => $value) {
-            $parameters[] = $rowObject->{$value};
+            if(is_array($rowObject)) {
+                $parameters[] = $rowObject[$value];
+            }
+            else {
+                $parameters[] = $rowObject->{$value};
+            }
         }
         return $parameters;
     }

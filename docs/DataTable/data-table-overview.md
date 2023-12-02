@@ -90,6 +90,16 @@ DataTable::get('my-module::my-data-table-slug')
 	->addAction('Bearbeiten','my-route.edit','id')
 ```
 ------------
+#### asPost()
+###### Action als Formular mittels POST ausführen
+> Falls es gewünscht ist, eine Action als POST-Formular auszuführen, verwenden Sie die Methode asPost()
+
+```php
+DataTable::get('my-module::my-data-table-slug')
+	->addAction('Bearbeiten','my-route.edit','id')
+		->asPost()
+```
+------------
 #### linkRows()
 ###### Gesamte Zeile verlinken
 > Um die gesamte Tabellenzeile zu verlinken verwende Sie die methode linkRows().

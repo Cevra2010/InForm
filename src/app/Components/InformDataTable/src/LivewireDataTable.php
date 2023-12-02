@@ -16,7 +16,7 @@ class LivewireDataTable extends Component {
     public $confirmation = false;
     public $confirmationText = null;
     public $confirmationRow = null;
-    public $confirmationAction = null;
+    public $confirmingAction = null;
     public $pagination;
     public $search;
     public $searchQuery;
@@ -97,25 +97,21 @@ class LivewireDataTable extends Component {
 
     public function confirmAction() {
         $table = DataTable::getTable($this->tableName);
-        $confirmation = $table->getConfirmation($this->confirmationAction);
-        $action = $table->getAction($this->confirmationAction);
-        if($action['post']) {
-
-        }
-        else {
+        $confirmation = $table->getConfirmation($this->confirmingAction['action_id']);
+        if(!$this->confirmingAction['post']) {
             $confirmation['callback']($this->confirmationRow);
         }
         $this->confirmation = false;
         $this->confirmationText = null;
         $this->confirmationRow = null;
-        $this->confirmationAction = null;
+        $this->confirmingAction = null;
     }
 
     public function disconfirmAction() {
         $this->confirmation = false;
         $this->confirmationText = null;
         $this->confirmationRow = null;
-        $this->confirmationAction = null;
+        $this->confirmingAction = null;
     }
 
     public function render() {
@@ -136,11 +132,13 @@ class LivewireDataTable extends Component {
     }
 
     public function openConfirmation($action_id,$tableRow) {
-        $confirmation =DataTable::getTable($this->tableName)->getConfirmation($action_id);
+        $confirmation = DataTable::getTable($this->tableName)->getConfirmation($action_id);
+        $action = DataTable::getTable($this->tableName)->getAction($action_id);
+
+        $this->confirmingAction = $action;
         $this->confirmationRow = $tableRow;
         $this->confirmation = true;
         $this->confirmationText = $confirmation['text'];
-        $this->confirmationAction = $action_id;
     }
 
     public function getSortIcon($key) {
