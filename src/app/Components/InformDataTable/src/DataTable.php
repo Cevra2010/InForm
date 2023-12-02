@@ -65,6 +65,8 @@ class DataTable {
     protected array $callbacks;
     protected array $accessColumns;
     protected array $accessActions;
+
+    protected array $data;
     
     /**
      * boots the initial table collector
@@ -99,6 +101,11 @@ class DataTable {
         $this->callbacks = [];
         $this->accessActions = [];
         $this->accessColumns = [];
+    }
+
+    public function setData($data) {
+        $this->data = $data;
+        return $this;
     }
     
     /**
@@ -157,8 +164,13 @@ class DataTable {
      * @param  mixed $search
      * @return DataTable
      */
-    public function addWhereCondition($key,$operator,$search = null) : DataTable {
-        if(!$search) {
+    public function addWhereCondition($key,$operator = null,$search = null) : DataTable {
+        if(!$operator) {
+            $this->whereCoditions[] = [
+                'key' => $key,
+            ];
+        }
+        elseif(!$search) {
             $this->whereCoditions[] = [
                 'key' => $key,
                 'search' => $operator
@@ -171,6 +183,11 @@ class DataTable {
                 'search' => $search,
             ];
         }
+        return $this;
+    }
+
+    public function setWhereConditions($whereCoditions) {
+        $this->whereCoditions = $whereCoditions;
         return $this;
     }
     
@@ -347,14 +364,30 @@ class DataTable {
      */
     public function processWhereConditions($queryModel) {
         foreach($this->whereCoditions as $condition) {
-            if(isset($condition['operator'])) {
-                $queryModel = $queryModel->where($condition['key'],$condition['operator'],$condition['search']);
+            if(!isset($condition['operator']) && !isset($condition['search'])) {
+                if(array_key_exists($condition['key'],$this->data)){
+                    $queryModel = $queryModel->where($condition['key'],$this->data[$condition['key']]);
+                }
             }
             else {
-                $queryModel = $queryModel->where($condition['key'],$condition['search']);
+                if(isset($condition['operator'])) {
+                    $queryModel = $queryModel->where($condition['key'],$condition['operator'],$condition['search']);
+                }
+                else {
+                    if(strpos($condition['key'],'->')) {
+                        $queryModel = $queryModel->whereJsonContains($condition['key'],$condition['search']);
+                    }
+                    else {
+                        $queryModel = $queryModel->where($condition['key'],$condition['search']);
+                    }
+                }
             }
         }
         return $queryModel;
+    }
+
+    public function getWhereConditions() {
+        return $this->whereCoditions;
     }
     
     /**
@@ -374,9 +407,9 @@ class DataTable {
     public function getResult() : object {
         $queryModel = new $this->model();
         $queryModel->withCasts(['updated_at' => 'datetime']);
+        $queryModel = $this->processSearch($queryModel);
         $queryModel = $this->processWhereConditions($queryModel);
         $queryModel = $this->processWiths($queryModel);
-        $queryModel = $this->processSearch($queryModel);
         $queryModel = $this->processSort($queryModel);
 
         if($this->pagination) {
@@ -396,7 +429,7 @@ class DataTable {
             elseif(count($this->searchExpect)) {
                 foreach($this->columns as $column) {
                     if(!in_array($column['key'],$this->searchExpect) && !in_array($column['key'],$this->withRelationships)) {
-                        $queryModel = $queryModel->orWhere($column['key'],'LIKE','%'.$this->searchQuery.'%');
+                        $queryModel = $queryModel->where($column['key'],'LIKE','%'.$this->searchQuery.'%');
                     }
                 }
             }
@@ -568,16 +601,25 @@ class DataTable {
     }
 
     public function addAction(string $name, string $route,...$parameters) : DataTable {
-        $actionId =  Str::random(10);
+        $actionId =  md5($name.$route);
         $this->actions[] = [
             'action_id' => $actionId,
             'name' => $name,
             'route' => $route,
             'parameters' => $parameters,
+            'post' => false,
         ];
         $this->lastAction = $actionId;
         $this->lastContact = 'action';
         return $this;
+    }
+
+    public function getAction($action_id) : array {
+        foreach($this->actions as $action) {
+            if($action['action_id'] == $action_id) {
+                return $action;
+            }
+        }
     }
 
     public function hasActions() {
@@ -598,17 +640,19 @@ class DataTable {
         if(!$confirmationText) {
             $confirmationText = self::DEFAULT_CONFIRMATION_TEXT;
         }
+        $action = $this->getLastAction();
         $this->confirmations[] = [
-            'key' => $this->lastAction,
+            'action_id' => $action['action_id'],
             'text' => $confirmationText,
             'callback' => $callbackFunction,
         ];
+
         return $this;
     }
 
-    public function getConfirmation(string $confirmationName) : array {
+    public function getConfirmation(string $action_id) : array {
         foreach($this->confirmations as $conf) {
-            if($conf['key'] == $confirmationName) {
+            if($conf['action_id'] == $action_id) {
                 return $conf;
             }
         }
@@ -687,6 +731,14 @@ class DataTable {
         else {
             $this->searchExpect = [$searchExpectArray];
         }
+        return $this;
+    }
+
+    public function asPost() : DataTable {
+        $lastAction = $this->getLastAction();
+        $lastAction['post'] = true;
+        $this->addToArray('post',true);
+
         return $this;
     }
 

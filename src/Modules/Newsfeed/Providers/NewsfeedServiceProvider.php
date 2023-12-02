@@ -53,17 +53,21 @@ class NewsfeedServiceProvider extends ServiceProvider
 
         /** Register edit table */
         DataTable::create('newsfeed::edit-table')
-        ->headerUppercase()
         ->withPivot('createdBy')
         ->withoutWrapper()
         ->sortExpect('createdBy')
         ->setModelBinding(Article::class)
+        ->addWhereCondition('data->newsfeed_id')
         ->addAction('','newsfeed::article.editor','id')
             ->icon("edit")
             ->css("text-yellow-500")
-        ->addAction('','newsfeed::article.editor','id')
+        ->addAction('','newsfeed::article.publish','id')
             ->icon("globe")
             ->css("text-teal-700")
+            ->asPost()
+            ->confirmation(function() {
+                
+            },'Beitrag wirklich veröffentlichen?')
         ->addColumn('data->title','Titel')
         ->addColumn('createdBy','Erstellt von')
             ->callback(function($row) {

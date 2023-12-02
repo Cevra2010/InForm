@@ -50,6 +50,10 @@ $myDataTable = DataTable::get('my-module::my-data-table-slug');
 ```html
 <x-inform-data-table table="my-module::my-data-table-slug" />
 ```
+> Zusätzliche Daten können in der Laufzeit angegeben und zu späteren Zeitpunkten verarbeitet werden
+```html
+<x-inform-data-table table="my-module::my-data-table-slug" :data="['group_id' => $group->id]"/>
+```
 
 ## Umgang mit Daten
 Jede Aufruf einer Methode, welche Daten in die DataTable hineingibt, gibt grundsätzlich die eigene Instanz als return zurück. Somit kann aufbauend und mit schönem, gut lesbarem Code gearbeitet werden.
@@ -188,6 +192,30 @@ DataTable::get('my-module::my-data-table-slug')
 		'id',
 		'firstname'
 	]);
+```
+------------
+#### addWhereCondition()
+###### Daten selektieren
+> Um Daten vor dem Datenbankkontakt zu selektieren steht ihnen die addWhereCodition()-methode zu verfügung.
+> Durch diese Methode können Sie auf Service-Provider Ebene Daten filtern.
+
+```php
+DataTable::get('my-module::my-data-table-slug')
+	->addAction('Bearbeiten','my-route.edit','id')
+	->addWhereCondition('age','>',20)
+	->addWhereCondition('is_admin','==',true)
+	->addWhereCondition('is_admin',true);
+```
+
+> Sie können auf ebenfalls auf alle Data-Parameter für den späteren abruf einer Where-Condition zugreifen
+
+```html
+<x-inform-data-table table="newsfeed::my-data-table-slug" :data="['is_admin' => $group->is_admin]"/>
+``````
+
+```php
+DataTable::get('my-module::my-data-table-slug')
+	->addWhereCondition('is_admin');
 ```
 ------------
 ## Styling

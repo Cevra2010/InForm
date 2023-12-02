@@ -36,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $tableRow) 
+            @foreach($tableData as $tableRow) 
                 <tr @if($this->isRowLinked()) class="inform-default-table-row-linked" @endif>
                     @foreach($this->getColumns() as $column) 
                     <td @if($this->isRowLinked()) onclick="window.location.href='{{ route($this->getRowLinkRoute(),$this->getRowLinkParameters($tableRow)) }}'" @endif>                                 

@@ -54,8 +54,7 @@ class NewsfeedController extends Controller
     }
 
     public function showNewsfeedDashbaord(Newsfeed $newsfeed) {
-        DataTable::getTable('newsfeed::edit-table')
-        ->addWhereCondition('data->newsfeed_id',$newsfeed->id);
+        DataTable::getTable('newsfeed::edit-table');
         return view("newsfeed::dashbaord",[
             'newsfeed' => $newsfeed,
         ]);

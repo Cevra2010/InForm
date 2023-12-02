@@ -11,6 +11,7 @@ class DataTableViewComponent extends Component {
 
     public function __construct(
         public string $table,
+        public array $data,
     ) {}
 
     public function render() {
@@ -19,7 +20,7 @@ class DataTableViewComponent extends Component {
             $this->error = 'Die Tabelle '.$this->table.' konnte nicht gefunden werden';
         }
 
-        return view("inform-data-table::view-component",['dataTable' => $dataTable]);
+        return view("inform-data-table::view-component",['dataTable' => $dataTable,'data' => $this->data]);
     }
 
 }

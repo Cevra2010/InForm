@@ -18,12 +18,12 @@
     <div class="grid grid-flow-row auto-rows-max gap-4 mt-4">
         <div>
             <x-inform-panel headline="Warten auf veröffentlichung" icon="bars-progress">
-  
+                
             </x-inform-panel>
         </div>
         <div>
             <x-inform-panel headline="Entwürfe" icon="pen-ruler">
-                <x-inform-data-table table="newsfeed::edit-table" />
+                <x-inform-data-table table="newsfeed::edit-table" :data="['data->newsfeed_id' => $newsfeed->id]"/>
             </x-inform-panel>
         </div>
 

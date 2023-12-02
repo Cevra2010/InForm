@@ -22,6 +22,7 @@ Route::middleware("define-area:newsfeed")->name("newsfeed::")->prefix("/Newsfeed
     Route::get('/Newsfeed/{newsfeed}/Dashboard',[NewsfeedController::class,'showNewsfeedDashbaord'])->name("dashbaord");
     Route::post('/Newsfeed/{newsfeed}',[NewsfeedController::class,'updateSettings'])->name("update-settings");
     Route::get('/Article/New/{newsfeed}',[ArticleController::class,'createNewArticle'])->name("article.create");
+    Route::post('/Article/Publish/{article}',[ArticleController::class,'publishArticle'])->name("article.publish");
     Route::get('/Article/Article-Editor/{article?}',[ArticleController::class,'showArticleEditor'])->name("article.editor");
     Route::post('/Article/Store/{article}',[ArticleController::class,'store'])->name("article.store");
 });

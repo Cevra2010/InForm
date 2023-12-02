@@ -72,6 +72,10 @@ class ArticleController extends Controller
         return redirect()->route("newsfeed::article.editor",$article);
     }
 
+    public function publishArticle(Article $article) {
+        dd("Article");
+    }
+
     public function store(StoreArticleRequest $request,Article $article) {
         $article->data['content'] = $request->content;
         $article->data['title'] = $request->title;

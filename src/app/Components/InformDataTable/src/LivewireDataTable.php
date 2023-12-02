@@ -21,18 +21,23 @@ class LivewireDataTable extends Component {
     public $search;
     public $searchQuery;
     public $sorts;
+    public $whereConditions;
+    public $data;
 
     protected $table;
+
     public $tableName;
 
-    public function mount($table) {
+    public function mount($table,$data) {
         $this->tableName = $table;
+        $this->data = $data;
         $this->table = DataTable::getTable($table);
         $this->columns = $this->table->getColumns();
         $this->css_TableClass = $this->table->getCssTableClass();
         $this->headerUpperCase = $this->table->isHeaderUpperCase();
         $this->pagination = $this->table->hasPagination();
         $this->search = $this->table->hasSearch();
+        $this->whereConditions = $this->table->getWhereConditions();
         $this->sorts = [];
     }
 
@@ -93,7 +98,13 @@ class LivewireDataTable extends Component {
     public function confirmAction() {
         $table = DataTable::getTable($this->tableName);
         $confirmation = $table->getConfirmation($this->confirmationAction);
-        $confirmation['callback']($this->confirmationRow);
+        $action = $table->getAction($this->confirmationAction);
+        if($action['post']) {
+
+        }
+        else {
+            $confirmation['callback']($this->confirmationRow);
+        }
         $this->confirmation = false;
         $this->confirmationText = null;
         $this->confirmationRow = null;
@@ -109,23 +120,27 @@ class LivewireDataTable extends Component {
 
     public function render() {
         $this->table = DataTable::getTable($this->tableName);
+
+        $this->table->setData($this->data);
+
         foreach($this->sorts as $key => $value) {
             $this->table->setSort($key,$value['direction']);
         }
-        $data = $this->table->searchFor($this->searchQuery)->getResult();
+
+        $tableData = $this->table
+        ->searchFor($this->searchQuery)->getResult();
 
         return view("inform-data-table::table",[
-            'data' => $data,
+            'tableData' => $tableData,
         ]);
     }
 
-    public function openConfirmation($confirmationAction,$tableRow) {
-        $table = DataTable::getTable($this->tableName);
-        $confirmation = $table->getConfirmation($confirmationAction);
+    public function openConfirmation($action_id,$tableRow) {
+        $confirmation =DataTable::getTable($this->tableName)->getConfirmation($action_id);
         $this->confirmationRow = $tableRow;
         $this->confirmation = true;
         $this->confirmationText = $confirmation['text'];
-        $this->confirmationAction = $confirmationAction;
+        $this->confirmationAction = $action_id;
     }
 
     public function getSortIcon($key) {
